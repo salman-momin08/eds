@@ -1,37 +1,149 @@
+/* CONTAINER RESET */
 .hero-container .hero-wrapper {
   max-width: unset;
   padding: 0;
 }
 
-.hero {
+/* MAIN HERO BLOCK */
+.hero.block {
   position: relative;
-  padding: 40px 24px;
-  min-height: 300px;
+  min-height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+  background: #000;
 }
 
-.hero h1 {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--background-color);
-}
-
-.hero picture {
+/* BACKGROUND IMAGE */
+.hero .hero-bg {
   position: absolute;
-  z-index: -1;
   inset: 0;
-  object-fit: cover;
-  box-sizing: border-box;
+  z-index: 0;
 }
 
-.hero img {
-  object-fit: cover;
+.hero .hero-bg picture,
+.hero .hero-bg img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-@media (width >= 900px) {
-  .hero {
-    padding: 40px 32px;
+/* GRADIENT OVERLAY */
+.hero .hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.6), /* Red */
+    rgba(0, 0, 0, 0.4)
+  );
+  pointer-events: none; /* Allows clicking through to buttons if needed */
+}
+
+/* TEXT CONTENT */
+.hero .hero-content {
+  position: relative;
+  z-index: 10; /* Increased to be above overlay */
+  max-width: 900px;
+  width: 100%;
+  padding: 40px 20px 60px 20px;
+  text-align: center;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero .hero-content h1 {
+  font-size: clamp(32px, 5vw, 56px);
+  font-weight: 800;
+  margin: 0 0 15px;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.hero .hero-content p {
+  font-size: clamp(16px, 2vw, 22px);
+  margin-bottom: 35px;
+  opacity: 0.95;
+}
+
+/* BUTTONS CONTAINER */
+.hero .hero-buttons {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 30px;
+  margin-bottom: 60px;
+  flex-wrap: nowrap !important;
+  width: 100%;
+}
+
+/* SLEEK HERO BUTTONS */
+.hero .hero-btn {
+  appearance: none;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 40px;
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+  border-radius: 50px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  white-space: nowrap;
+  backdrop-filter: blur(8px);
+  min-width: 140px;
+  flex-shrink: 0;
+  margin: 0 !important;
+  vertical-align: middle;
+}
+
+
+/* HOVER STATE */
+.hero .hero-btn:hover {
+  background-color: rgba(255, 255, 255, 0.25);
+  border-color: #fff;
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ACTIVE TAB STATE (IMPORTANT) */
+.hero .hero-btn.active {
+  background-color: #fff;
+  color: #ef4444;
+  border-color: #fff;
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.3);
+  font-weight: 800;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (min-width: 900px) {
+  .hero.block {
+    min-height: 650px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero .hero-buttons {
+    gap: 10px;
+    flex-wrap: wrap; /* Stack buttons if screen is too small */
+  }
+  
+  .hero .hero-btn {
+    padding: 10px 24px;
+    font-size: 14px;
+    width: 140px; /* Uniform width on mobile */
   }
 }

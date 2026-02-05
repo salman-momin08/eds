@@ -1,0 +1,250 @@
+:root {
+  --primary: #ef4444;
+  --primary-dark: #dc2626;
+  --white: #ffffff;
+  --border: #d1d5db;
+  --text-black: #000000;
+  --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.search.block { position: relative; z-index: 10; }
+
+.hero-content .search.block {
+  width: 100%;
+  max-width: 1100px;
+  margin: 30px auto 0;
+}
+
+.search-wrapper {
+  background: var(--white);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+.search-fields-grid {
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+}
+
+.search-field {
+  flex: 1;
+  padding: 0 15px;
+  border-right: 1px solid #e5e7eb;
+  position: relative; /* Needed for dropdown */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.search-field:last-of-type { border-right: none; }
+
+.search-field label {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+  display: block;
+}
+
+.search-field input, .guest-trigger {
+  border: none;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 6px 0;
+  width: 100%;
+  outline: none;
+  font-size: 14px;
+  color: #000 !important;
+  background: transparent;
+  cursor: pointer;
+  text-align: left;
+}
+
+/* Fix flight field overlap by ensuring proper spacing */
+.search-field.flight-only {
+  min-width: 150px;
+  flex-shrink: 0;
+}
+
+.search-field.flight-only input {
+  min-width: 120px;
+}
+
+/* GUEST DROPDOWN STYLING */
+.guest-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 15px;
+  background: white;
+  border: 1px solid var(--border);
+  padding: 15px;
+  border-radius: 8px;
+  width: 220px;
+  box-shadow: var(--shadow);
+  z-index: 100;
+  margin-top: 10px;
+}
+
+.guest-dropdown.show { display: block; }
+
+.counter-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.counter-row:last-child { margin-bottom: 0; }
+
+.counter-ctrl {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.counter-ctrl button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--primary);
+  background: white;
+  color: var(--primary);
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.counter-ctrl .val {
+  font-weight: 700;
+  min-width: 15px;
+  text-align: center;
+}
+
+/* RESULTS CONTAINER - FLEX ROW WRAP */
+.results-list-container {
+  display: none;
+  flex-flow: column;
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e5e7eb;
+}
+
+.results-header {
+  padding: 20px 30px;
+  border-bottom: 2px solid #f3f4f6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.results-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #000;
+}
+
+.results-header .clear-btn {
+  background: #6b7280;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.results-header .clear-btn:hover {
+  background: #4b5563;
+}
+
+.results-grid {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 20px;
+  padding: 30px;
+}
+
+.result-list-item {
+  flex: 0 1 calc(33.333% - 14px);
+  background: #ffffff !important;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-width: 280px;
+}
+
+/* Flight result without image */
+.result-list-item.flight-result {
+  flex-direction: row;
+  align-items: center;
+  padding: 20px;
+}
+
+.flight-info-full {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  gap: 20px;
+}
+
+.flight-route h4 {
+  margin: 0;
+  font-size: 18px;
+  color: #000 !important;
+  font-weight: 700;
+}
+
+.airline-name {
+  margin: 6px 0 0;
+  font-size: 14px;
+  color: #666 !important;
+}
+
+.flight-price-section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 12px;
+}
+
+.list-img { width: 100%; height: 180px; object-fit: cover; }
+.list-info { padding: 15px; display: flex; flex-direction: column; flex-grow: 1; background: #fff; }
+
+.search.block .list-text h4 { margin: 0; font-size: 17px; color: #000 !important; font-weight: 700; }
+.search.block .list-text p { margin: 4px 0 0; font-size: 13px; color: #333 !important; }
+
+.list-price-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 15px;
+  padding-top: 12px;
+  border-top: 1px solid #f3f4f6;
+}
+
+.search.block .price-val { font-size: 18px; font-weight: 800; color: #000 !important; }
+.view-deal-btn { background: var(--primary); color: #fff !important; border: none; padding: 8px 16px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+
+/* SEARCH ACTIONS */
+.search-actions { display: flex; align-items: center; padding: 0 15px; }
+.search-btn { background: var(--primary); color: #fff; padding: 12px 24px; border-radius: 8px; border: none; font-weight: 700; cursor: pointer; }
+.status-msg { width: 100%; text-align: center; color: #000 !important; padding: 20px; font-weight: 600; }
+
+@media (max-width: 600px) {
+  .search-fields-grid { flex-direction: column; align-items: stretch; }
+  .search-field { border-right: none; border-bottom: 1px solid #eee; padding: 10px 0; }
+  .result-list-item { flex: 0 1 100%; }
+}

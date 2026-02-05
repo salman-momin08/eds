@@ -1,20 +1,89 @@
+/* ROOT FOOTER CONTAINER */
 footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+  background-color: #1a202c; /* Deeper Dark Grey */
+  color: #ffffff;
+  padding: 30px 0 0px;
+  font-family: var(--body-font-family, sans-serif);
 }
 
-footer .footer > div {
-  margin: auto;
+/* MAIN WRAPPER */
+.footer.block > div {
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 0 24px;
 }
 
-footer .footer p {
+/* INDIVIDUAL SECTIONS (COLUMNS) */
+.footer .section {
+  flex: 0 1 auto; /* Shrink to fit content */
+  min-width: 160px;
+  margin-bottom: 30px;
+}
+
+/* HEADERS (About Agoda, Support, Partners, Connect) */
+.footer .section ul li:first-child,
+.footer .section ul li:first-child p,
+.footer .section strong {
+  color: #ffffff !important; /* Bold White */
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: none; /* Keeps original casing */
+  margin-bottom: 12px;
+  list-style: none;
+}
+
+/* LIST STYLING */
+.footer ul {
+  list-style: none;
+  padding: 0;
   margin: 0;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+.footer ul li {
+  margin-bottom: 8px;
+}
+
+/* Regular Link Items */
+.footer ul li p, 
+.footer ul li {
+  color: #a0aec0; /* Dimmer grey for links */
+  font-size: 14px;
+  transition: color 0.2s;
+  cursor: pointer;
+  margin: 0;
+}
+
+.footer ul li:hover {
+  color: #ef4444; /* Turns red on hover */
+}
+
+/* COPYRIGHT SECTION (The bottom part) */
+.footer .section:last-child {
+  flex: 0 0 100%; /* Spans full width */
+  border-top: 1px solid #2d3748;
+  margin-top: 10px;
+  padding-top: 15px; /* Reduced padding to shrink space */
+  text-align: center;
+}
+
+.footer .section:last-child .default-content-wrapper {
+  display: inline-block; /* Only takes up space of the text */
+}
+
+.footer .section:last-child p {
+  color: #718096;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* RESPONSIVE */
+@media (max-width: 600px) {
+  .footer.block > div {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
   }
 }

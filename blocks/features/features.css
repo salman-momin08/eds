@@ -1,0 +1,86 @@
+.features.block {
+  max-width: 1200px; /* Wider for horizontal layout */
+  margin: 60px auto;
+  padding: 0 20px;
+  font-family: var(--body-font-family, sans-serif);
+}
+
+/* Section Title Styling */
+.features-title-row {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.features-title-row h2 {
+  font-size: clamp(28px, 4vw, 36px);
+  color: #1e293b;
+  font-weight: 800;
+}
+
+/* THE HORIZONTAL GRID */
+.features-cards-container {
+  display: grid;
+  /* Creates 4 equal columns on desktop */
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 24px;
+}
+
+.feature-card {
+  background: #ffffff;
+  padding: 30px 20px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  text-align: center; /* Center content for horizontal cards */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  border-color: #ef4444;
+}
+
+/* Icon Styling */
+.feature-icon {
+  font-size: 48px;
+  margin: 0 0 20px 0;
+  line-height: 1;
+}
+
+.feature-card h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+  color: #1e293b;
+  font-weight: 700;
+}
+
+.feature-card p:not(.feature-icon) {
+  margin: 0;
+  font-size: 14px;
+  color: #64748b;
+  line-height: 1.6;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+
+/* Tablet: 2 columns */
+@media (max-width: 992px) {
+  .features-cards-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 column */
+@media (max-width: 600px) {
+  .features-cards-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .features.block {
+    margin: 40px auto;
+  }
+}

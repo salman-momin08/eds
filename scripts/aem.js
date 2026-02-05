@@ -248,7 +248,7 @@ function readBlockConfig(block) {
 
 /**
  * Loads a CSS file.
- * @param {string} href URL to the CSS file
+ * @param {string} href Path of the css file
  */
 async function loadCSS(href) {
   return new Promise((resolve, reject) => {

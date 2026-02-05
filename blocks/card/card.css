@@ -1,0 +1,67 @@
+/* CARD BLOCK */
+.card.block {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+.card.block .card-item {
+  flex: 0 0 calc(25% - 15px) !important;
+  /* min-width: 250px !important; */
+  background: #fff !important;
+  border-radius: 16px !important;
+  position: relative !important; /* CRITICAL */
+  overflow: hidden !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+/* THE TAG */
+.card.block .card-save-tag {
+  position: absolute !important;
+  top: 15px !important;
+  left: 15px !important;
+  background-color: #ef4444 !important;
+  color: #fff !important;
+  padding: 6px 12px !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  border-radius: 8px !important;
+  z-index: 10 !important; /* Sit on top of image */
+  text-transform: uppercase !important;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3) !important;
+}
+
+.card.block .card-image img {
+  width: 100% !important;
+  aspect-ratio: 4 / 3 !important;
+  object-fit: cover !important;
+  display: block !important;
+  transition: transform 0.3s ease !important;
+}
+
+.card.block .card-item:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.18) !important;
+}
+
+.card.block .card-item:hover .card-image img {
+  transform: scale(1.03) !important;
+}
+
+.card.block .card-body {
+  padding: 20px !important;
+}
+
+.card.block h3 { margin: 0 0 10px 0 !important; font-size: 20px !important; }
+.card.block p { margin: 5px 0 !important; color: #666 !important; }
+.card.block p strong { color: #ef4444 !important; }
+
+/* Responsive */
+@media (max-width: 1024px) { .card.block .card-item { flex: 0 0 calc(50% - 10px) !important; } }
+@media (max-width: 600px) { .card.block .card-item { flex: 0 0 100% !important; } }

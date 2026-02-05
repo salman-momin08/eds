@@ -1,0 +1,55 @@
+/* Centering the section */
+.trust-container {
+  background-color: #f8fafc;
+  padding: 15px 0;
+  display: flex;
+  justify-content: center;
+}
+
+/* The main block container - CHANGED TO ROW */
+.trust.block.trust-list {
+  display: flex;
+  flex-direction: row; /* Aligns items horizontally */
+  justify-content: center; /* Centers items in the row */
+  flex-wrap: wrap; /* Allows wrapping on small mobile screens */
+  gap: 40px; /* Space between the items */
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Target the rows created by EDS */
+.trust.block .trust-item-row {
+  display: flex;
+  align-items: center;
+}
+
+/* Target the content div */
+.trust.block .trust-item-content {
+  font-size: 15px;
+  font-weight: 600;
+  color: #475569;
+  position: relative;
+  padding-left: 28px; /* Space for the checkmark */
+  white-space: nowrap; /* Prevents text from breaking into two lines */
+}
+
+/* The Green Checkmark */
+.trust.block .trust-item-content::before {
+  content: '\2713'; 
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #22c55e !important;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+/* Responsive: On very small phones, stack them if there is no room */
+@media (max-width: 600px) {
+  .trust.block.trust-list {
+    gap: 15px 25px; /* Tighter gap on mobile */
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+}
