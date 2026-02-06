@@ -153,8 +153,26 @@ export default function decorate(block) {
   block.querySelector('.search-btn').addEventListener('click', async () => {
     const query = isHotels ? block.querySelector('#locInput').value.trim() : block.querySelector('#toInput').value.trim();
     if (!query) {
-      // eslint-disable-next-line no-alert
-      alert('Please enter a search term.');
+      resultsBox.innerHTML = `
+        <div class="results-header">
+          <h2>Search Error</h2>
+          <button class="clear-btn">Clear</button>
+        </div>
+        <div class="results-grid">
+          <div class="status-msg">Please enter a destination to search.</div>
+        </div>
+      `;
+      resultsBox.style.display = 'flex';
+
+      const clearBtn = resultsBox.querySelector('.clear-btn');
+      if (clearBtn) {
+        clearBtn.onclick = () => {
+          block.querySelectorAll('input:not([type="date"])').forEach((i) => {
+            i.value = '';
+          });
+          resultsBox.style.display = 'none';
+        };
+      }
       return;
     }
 
