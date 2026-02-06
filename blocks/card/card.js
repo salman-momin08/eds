@@ -10,13 +10,13 @@ export default function decorate(block) {
     cells.forEach((cell) => {
       const cardItem = document.createElement('div');
       cardItem.className = 'card-item';
-      
+
       const textContent = [];
       let saveText = '';
 
       [...cell.children].forEach((child) => {
         const text = child.textContent.trim();
-        
+
         // This looks for "Save" in your document
         if (text.toLowerCase().includes('save')) {
           saveText = text;
@@ -31,18 +31,18 @@ export default function decorate(block) {
       });
 
       // FOR TESTING: If no save text is found in doc, we force one
-      // if (!saveText) saveText = "Save up to 30%"; 
+      // if (!saveText) saveText = "Save up to 30%";
 
       // // Create Tag
       const tag = document.createElement('span');
       tag.className = 'card-save-tag';
       tag.textContent = saveText;
-      cardItem.append(tag); 
+      cardItem.append(tag);
 
       // Create Body
       const bodyDiv = document.createElement('div');
       bodyDiv.className = 'card-body';
-      textContent.forEach(content => bodyDiv.append(content));
+      textContent.forEach((content) => bodyDiv.append(content));
       cardItem.append(bodyDiv);
 
       block.append(cardItem);

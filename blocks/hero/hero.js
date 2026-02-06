@@ -19,32 +19,32 @@ export default function decorate(block) {
 
     // 2. Detect if this is a button row (should only have Hotels/Flights as separate cells)
     const cells = Array.from(row.children);
-    const cellTexts = cells.map(c => c.innerText.trim().toLowerCase());
-    
+    const cellTexts = cells.map((c) => c.innerText.trim().toLowerCase());
+
     // Check if this row has exactly "hotels" and/or "flights" as individual cells
-    const hasHotelCell = cellTexts.some(t => t === 'hotels');
-    const hasFlightCell = cellTexts.some(t => t === 'flights');
+    const hasHotelCell = cellTexts.some((t) => t === 'hotels');
+    const hasFlightCell = cellTexts.some((t) => t === 'flights');
     const isButtonRow = (hasHotelCell || hasFlightCell) && cells.length <= 2;
-    
+
     if (isButtonRow) {
       // Create button wrapper only once
       if (!buttonWrapper) {
         buttonWrapper = document.createElement('div');
         buttonWrapper.className = 'hero-buttons';
       }
-      
-      cells.forEach(cell => {
+
+      cells.forEach((cell) => {
         const text = cell.innerText.trim();
         const lowerText = text.toLowerCase();
-        
+
         if (lowerText === 'hotels' || lowerText === 'flights') {
           const btn = document.createElement('button');
           btn.className = 'hero-btn';
           btn.textContent = text;
-          
+
           if (lowerText === 'hotels') btn.dataset.tab = 'hotels';
           else if (lowerText === 'flights') btn.dataset.tab = 'flights';
-          
+
           buttonWrapper.append(btn);
         }
       });
@@ -56,20 +56,20 @@ export default function decorate(block) {
       }
       textWrapper.append(...row.childNodes);
     }
-    
+
     row.remove();
   });
-  
+
   // Add text wrapper if it has content
   if (textWrapper && textWrapper.children.length > 0) {
     container.prepend(textWrapper);
   }
-  
+
   // Add button wrapper if it has buttons
   if (buttonWrapper && buttonWrapper.children.length > 0) {
     container.append(buttonWrapper);
   }
-  
+
   const overlay = document.createElement('div');
   overlay.className = 'hero-overlay';
   block.append(overlay);
@@ -86,21 +86,21 @@ export default function decorate(block) {
 
   // Sync Tab Buttons
   const toggleButtons = block.querySelectorAll('.hero-btn');
-  
+
   // Activate first button by default (Hotels)
   if (toggleButtons.length > 0) {
     toggleButtons[0].classList.add('active');
-    window.dispatchEvent(new CustomEvent('search:tab-change', { 
-      detail: { tab: toggleButtons[0].dataset.tab || 'hotels' } 
+    window.dispatchEvent(new CustomEvent('search:tab-change', {
+      detail: { tab: toggleButtons[0].dataset.tab || 'hotels' },
     }));
   }
-  
-  toggleButtons.forEach(btn => {
+
+  toggleButtons.forEach((btn) => {
     btn.addEventListener('click', () => {
-      toggleButtons.forEach(b => b.classList.remove('active'));
+      toggleButtons.forEach((b) => b.classList.remove('active'));
       btn.classList.add('active');
-      window.dispatchEvent(new CustomEvent('search:tab-change', { 
-        detail: { tab: btn.dataset.tab } 
+      window.dispatchEvent(new CustomEvent('search:tab-change', {
+        detail: { tab: btn.dataset.tab },
       }));
     });
   });

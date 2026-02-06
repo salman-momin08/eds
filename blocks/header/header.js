@@ -3,6 +3,13 @@ import { loadFragment } from '../fragment/fragment.js';
 
 const isDesktop = window.matchMedia('(min-width: 900px)');
 
+function toggleAllNavSections(sections, expanded = false) {
+  if (!sections) return; // FIX: Prevent "querySelectorAll of null"
+  sections.querySelectorAll('.default-content-wrapper > ul > li').forEach((section) => {
+    section.setAttribute('aria-expanded', expanded);
+  });
+}
+
 function closeOnEscape(e) {
   if (e.code === 'Escape') {
     const nav = document.getElementById('nav');
@@ -13,6 +20,7 @@ function closeOnEscape(e) {
       toggleAllNavSections(navSections);
       navSectionExpanded.focus();
     } else if (!isDesktop.matches) {
+      // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections);
       nav.querySelector('button').focus();
     }
@@ -28,6 +36,7 @@ function closeOnFocusLost(e) {
     if (navSectionExpanded && isDesktop.matches) {
       toggleAllNavSections(navSections, false);
     } else if (!isDesktop.matches) {
+      // eslint-disable-next-line no-use-before-define
       toggleMenu(nav, navSections, false);
     }
   }
@@ -47,24 +56,17 @@ function focusNavSection() {
   document.activeElement.addEventListener('keydown', openOnKeydown);
 }
 
-function toggleAllNavSections(sections, expanded = false) {
-  if (!sections) return; // FIX: Prevent "querySelectorAll of null"
-  sections.querySelectorAll('.default-content-wrapper > ul > li').forEach((section) => {
-    section.setAttribute('aria-expanded', expanded);
-  });
-}
-
 function toggleMenu(nav, navSections, forceExpanded = null) {
   if (!nav || !navSections) return; // FIX: Prevent crashes if elements aren't ready
 
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
-  
+
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
-  
+
   toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
-  
+
   if (button) button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
 
   const navDrops = navSections.querySelectorAll('.nav-drop');
@@ -137,27 +139,27 @@ export default async function decorate(block) {
   hamburger.innerHTML = `<button type="button" aria-controls="nav" aria-label="Open navigation">
       <span class="nav-hamburger-icon"></span>
     </button>`;
-  
+
   nav.prepend(hamburger);
   nav.setAttribute('aria-expanded', 'false');
 
   // Attach click listener AFTER hamburger is in the DOM
   const hamburgerBtn = nav.querySelector('.nav-hamburger button');
-  
+
   if (hamburgerBtn) {
-    hamburgerBtn.addEventListener('click', function(e) {
+    hamburgerBtn.addEventListener('click', (e) => {
       e.preventDefault();
       e.stopPropagation();
-      
+
       // Get current state
       const isExpanded = nav.getAttribute('aria-expanded') === 'true';
-      
+
       // Toggle aria-expanded
       nav.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-      
+
       // Toggle body overflow
       document.body.style.overflowY = isExpanded ? '' : 'hidden';
-      
+
       // Update hamburger button label
       hamburgerBtn.setAttribute('aria-label', isExpanded ? 'Open navigation' : 'Close navigation');
     });
@@ -169,7 +171,7 @@ export default async function decorate(block) {
   } else {
     nav.setAttribute('aria-expanded', 'false');
   }
-  
+
   // Handle window resize
   isDesktop.addEventListener('change', () => {
     nav.setAttribute('aria-expanded', isDesktop.matches ? 'true' : 'false');

@@ -61,13 +61,13 @@ export default function decorate(block) {
   // Create results container after hero section
   const heroSection = document.querySelector('.hero');
   let resultsBox = document.querySelector('#resultsContainer');
-  
+
   if (!resultsBox) {
     resultsBox = document.createElement('div');
     resultsBox.id = 'resultsContainer';
     resultsBox.className = 'results-list-container';
     resultsBox.style.display = 'none';
-    
+
     if (heroSection && heroSection.parentElement) {
       heroSection.parentElement.insertBefore(resultsBox, heroSection.nextSibling);
     } else {
@@ -78,11 +78,44 @@ export default function decorate(block) {
   const guestTrigger = block.querySelector('#guestTrigger');
   const guestDropdown = block.querySelector('#guestDropdown');
 
+  const buildHotelMarkup = (item, displayPrice) => `
+    <div class="result-list-item">
+      <img src="${item.image || ''}" class="list-img" alt="travel-img">
+      <div class="list-info">
+        <div class="list-text">
+          <h4>${item.name || 'Hotel'}</h4>
+          <p>${item.city || ''} • ⭐ ${item.rating || '4.5'}</p>
+        </div>
+        <div class="list-price-group">
+          <span class="price-val">₹${displayPrice}</span>
+          <button class="view-deal-btn">View Deal</button>
+        </div>
+      </div>
+    </div>`;
+
+  const buildFlightMarkup = (item, displayPrice) => `
+    <div class="result-list-item flight-result">
+      <div class="flight-info-full">
+        <div class="flight-route">
+          <h4>${item.from || 'Departure'} → ${item.to || 'Arrival'}</h4>
+          <p class="airline-name">${item.airline || 'Airline'}</p>
+        </div>
+        <div class="flight-price-section">
+          <span class="price-val">₹${displayPrice}</span>
+          <button class="view-deal-btn">Book Now</button>
+        </div>
+      </div>
+    </div>`;
+
   // 2. Tab Switch Sync
   window.addEventListener('search:tab-change', (e) => {
     isHotels = e.detail.tab === 'hotels';
-    block.querySelectorAll('.hotel-only').forEach(el => el.style.display = isHotels ? 'flex' : 'none');
-    block.querySelectorAll('.flight-only').forEach(el => el.style.display = isHotels ? 'none' : 'flex');
+    block.querySelectorAll('.hotel-only').forEach((el) => {
+      el.style.display = isHotels ? 'flex' : 'none';
+    });
+    block.querySelectorAll('.flight-only').forEach((el) => {
+      el.style.display = isHotels ? 'none' : 'flex';
+    });
     dateLabel.textContent = isHotels ? 'Check in' : 'Departure';
     resultsBox.style.display = 'none';
   });
@@ -96,15 +129,15 @@ export default function decorate(block) {
   document.addEventListener('click', () => guestDropdown.classList.remove('show'));
   guestDropdown.addEventListener('click', (e) => e.stopPropagation());
 
-  block.querySelectorAll('.counter-ctrl').forEach(ctrl => {
+  block.querySelectorAll('.counter-ctrl').forEach((ctrl) => {
     ctrl.addEventListener('click', (e) => {
       const btn = e.target.closest('button');
       if (!btn) return;
       const valSpan = ctrl.querySelector('.val');
-      let val = parseInt(valSpan.textContent);
+      let val = parseInt(valSpan.textContent, 10);
       val = btn.classList.contains('plus') ? val + 1 : Math.max(1, val - 1);
       valSpan.textContent = val;
-      
+
       const adults = block.querySelector('[data-type="adults"] .val').textContent;
       const rooms = block.querySelector('[data-type="rooms"] .val').textContent;
       guestTrigger.textContent = `${adults} Adults, ${rooms} Room${rooms > 1 ? 's' : ''}`;
@@ -115,6 +148,7 @@ export default function decorate(block) {
   block.querySelector('.search-btn').addEventListener('click', async () => {
     const query = isHotels ? block.querySelector('#locInput').value.trim() : block.querySelector('#toInput').value.trim();
     if (!query) {
+      // eslint-disable-next-line no-alert
       alert('Please enter a search term.');
       return;
     }
@@ -128,7 +162,7 @@ export default function decorate(block) {
       let data = isHotels ? (json.data || json.hotels?.data || []) : (json['data-2'] || json.flights?.data || []);
       if (!Array.isArray(data) && typeof data === 'object') data = data.data || [];
 
-      const filtered = data.filter(item => {
+      const filtered = data.filter((item) => {
         const val = isHotels ? item.city : item.to;
         return val?.toString().toLowerCase().includes(query.toLowerCase());
       });
@@ -145,46 +179,23 @@ export default function decorate(block) {
           </div>
         `;
       } else {
+        const resultsMarkup = filtered.map((item) => {
+          const displayPrice = isHotels
+            ? (item.pricePerNight || item.price || item.rate || 'N/A')
+            : (item.price || item.fare || 'N/A');
+
+          return isHotels
+            ? buildHotelMarkup(item, displayPrice)
+            : buildFlightMarkup(item, displayPrice);
+        }).join('');
+
         resultsBox.innerHTML = `
           <div class="results-header">
             <h2>Search Results for "${query}" (${filtered.length} found)</h2>
             <button class="clear-btn">Clear Results</button>
           </div>
           <div class="results-grid">
-            ${filtered.map(item => {
-              const displayPrice = isHotels 
-                ? (item.pricePerNight || item.price || item.rate || 'N/A') 
-                : (item.price || item.fare || 'N/A');
-
-              return isHotels 
-                ? `
-                <div class="result-list-item">
-                  <img src="${item.image || ''}" class="list-img" alt="travel-img">
-                  <div class="list-info">
-                    <div class="list-text">
-                      <h4>${item.name || 'Hotel'}</h4>
-                      <p>${item.city || ''} • ⭐ ${item.rating || '4.5'}</p>
-                    </div>
-                    <div class="list-price-group">
-                      <span class="price-val">₹${displayPrice}</span>
-                      <button class="view-deal-btn">View Deal</button>
-                    </div>
-                  </div>
-                </div>`
-                : `
-                <div class="result-list-item flight-result">
-                  <div class="flight-info-full">
-                    <div class="flight-route">
-                      <h4>${item.from || 'Departure'} → ${item.to || 'Arrival'}</h4>
-                      <p class="airline-name">${item.airline || 'Airline'}</p>
-                    </div>
-                    <div class="flight-price-section">
-                      <span class="price-val">₹${displayPrice}</span>
-                      <button class="view-deal-btn">Book Now</button>
-                    </div>
-                  </div>
-                </div>`;
-            }).join('')}
+            ${resultsMarkup}
           </div>
         `;
       }
@@ -198,11 +209,12 @@ export default function decorate(block) {
       const clearBtn = resultsBox.querySelector('.clear-btn');
       if (clearBtn) {
         clearBtn.onclick = () => {
-          block.querySelectorAll('input:not([type="date"])').forEach(i => i.value = '');
+          block.querySelectorAll('input:not([type="date"])').forEach((i) => {
+            i.value = '';
+          });
           resultsBox.style.display = 'none';
         };
       }
-
     } catch (e) {
       resultsBox.innerHTML = `
         <div class="results-header">
@@ -218,7 +230,9 @@ export default function decorate(block) {
       const clearBtn = resultsBox.querySelector('.clear-btn');
       if (clearBtn) {
         clearBtn.onclick = () => {
-          block.querySelectorAll('input:not([type="date"])').forEach(i => i.value = '');
+          block.querySelectorAll('input:not([type="date"])').forEach((i) => {
+            i.value = '';
+          });
           resultsBox.style.display = 'none';
         };
       }
