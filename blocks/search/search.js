@@ -134,8 +134,13 @@ export default function decorate(block) {
       const btn = e.target.closest('button');
       if (!btn) return;
       const valSpan = ctrl.querySelector('.val');
+      const row = ctrl.closest('.counter-row');
+      const type = row ? row.dataset.type : 'adults';
+      const max = type === 'rooms' ? 20 : 30;
       let val = parseInt(valSpan.textContent, 10);
-      val = btn.classList.contains('plus') ? val + 1 : Math.max(1, val - 1);
+      val = btn.classList.contains('plus')
+        ? Math.min(max, val + 1)
+        : Math.max(1, val - 1);
       valSpan.textContent = val;
 
       const adults = block.querySelector('[data-type="adults"] .val').textContent;

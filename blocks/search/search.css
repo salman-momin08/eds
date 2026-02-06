@@ -116,6 +116,11 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  padding: 0;
 }
 
 .counter-ctrl .val {
