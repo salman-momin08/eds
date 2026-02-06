@@ -28,6 +28,10 @@ export default function decorate(block) {
             <label>Check out</label>
             <input type="date" id="checkout" min="${tomorrow}" value="${tomorrow}">
           </div>
+          <div class="search-field flight-only" style="display:none">
+            <label>Return (Optional)</label>
+            <input type="date" id="returnDate" min="${tomorrow}">
+          </div>
           <div class="search-field hotel-only" id="guestField">
             <label>Guests</label>
             <div id="guestTrigger" class="guest-trigger">2 Adults, 1 Room</div>
