@@ -57,7 +57,7 @@ function focusNavSection() {
 }
 
 function toggleMenu(nav, navSections, forceExpanded = null) {
-  if (!nav || !navSections) return; // FIX: Prevent crashes if elements aren't ready
+  if (!nav) return; // Safety check
 
   const expanded = forceExpanded !== null ? !forceExpanded : nav.getAttribute('aria-expanded') === 'true';
   const button = nav.querySelector('.nav-hamburger button');
@@ -65,23 +65,27 @@ function toggleMenu(nav, navSections, forceExpanded = null) {
   document.body.style.overflowY = (expanded || isDesktop.matches) ? '' : 'hidden';
   nav.setAttribute('aria-expanded', expanded ? 'false' : 'true');
 
-  toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
+  if (navSections) {
+    toggleAllNavSections(navSections, expanded || isDesktop.matches ? 'false' : 'true');
+  }
 
   if (button) button.setAttribute('aria-label', expanded ? 'Open navigation' : 'Close navigation');
 
-  const navDrops = navSections.querySelectorAll('.nav-drop');
-  if (isDesktop.matches) {
-    navDrops.forEach((drop) => {
-      if (!drop.hasAttribute('tabindex')) {
-        drop.setAttribute('tabindex', 0);
-        drop.addEventListener('focus', focusNavSection);
-      }
-    });
-  } else {
-    navDrops.forEach((drop) => {
-      drop.removeAttribute('tabindex');
-      drop.removeEventListener('focus', focusNavSection);
-    });
+  if (navSections) {
+    const navDrops = navSections.querySelectorAll('.nav-drop');
+    if (isDesktop.matches) {
+      navDrops.forEach((drop) => {
+        if (!drop.hasAttribute('tabindex')) {
+          drop.setAttribute('tabindex', 0);
+          drop.addEventListener('focus', focusNavSection);
+        }
+      });
+    } else {
+      navDrops.forEach((drop) => {
+        drop.removeAttribute('tabindex');
+        drop.removeEventListener('focus', focusNavSection);
+      });
+    }
   }
 
   if (!expanded || isDesktop.matches) {
@@ -151,17 +155,7 @@ export default async function decorate(block) {
       e.preventDefault();
       e.stopPropagation();
 
-      // Get current state
-      const isExpanded = nav.getAttribute('aria-expanded') === 'true';
-
-      // Toggle aria-expanded
-      nav.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-
-      // Toggle body overflow
-      document.body.style.overflowY = isExpanded ? '' : 'hidden';
-
-      // Update hamburger button label
-      hamburgerBtn.setAttribute('aria-label', isExpanded ? 'Open navigation' : 'Close navigation');
+      toggleMenu(nav, navSections);
     });
   }
 

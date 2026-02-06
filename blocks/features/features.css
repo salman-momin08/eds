@@ -84,3 +84,25 @@
     margin: 40px auto;
   }
 }
+/* FEATURES RESPONSIVE ENHANCEMENTS */
+@media (max-width: 768px) {
+  .features-cards-container {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  
+  .features.block {
+    padding: 0 15px !important;
+    margin: 40px auto !important;
+  }
+
+  .feature-card {
+    padding: 25px 15px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .features.block {
+    padding: 0 10px !important;
+  }
+}

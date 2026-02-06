@@ -1,6 +1,7 @@
 /* CONTAINER RESET */
 .hero-container .hero-wrapper {
   max-width: unset;
+
   padding: 0;
 }
 
@@ -145,5 +146,50 @@
     padding: 10px 24px;
     font-size: 14px;
     width: 140px; /* Uniform width on mobile */
+  }
+}
+/* RESPONSIVE ENHANCEMENTS FOR HERO */
+@media (max-width: 768px) {
+  .hero.block {
+    min-height: 400px !important;
+    overflow: hidden !important;
+  }
+
+  .hero .hero-content {
+    padding: 30px 15px 50px 15px !important;
+    max-width: 100% !important;
+  }
+
+  .hero .hero-buttons {
+    gap: 10px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 40px !important;
+  }
+  
+  .hero .hero-btn {
+    padding: 10px 24px !important;
+    font-size: 14px !important;
+    min-width: 130px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero.block {
+    min-height: 350px !important;
+  }
+
+  .hero .hero-content h1 {
+    font-size: 28px !important;
+  }
+
+  .hero .hero-content p {
+    font-size: 14px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .hero .hero-btn {
+    padding: 8px 20px !important;
+    font-size: 13px !important;
+    min-width: 110px !important;
   }
 }

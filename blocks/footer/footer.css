@@ -4,6 +4,8 @@ footer {
   color: #ffffff;
   padding: 30px 0 0px;
   font-family: var(--body-font-family, sans-serif);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* MAIN WRAPPER */
@@ -14,6 +16,8 @@ footer {
   flex-wrap: wrap;
   justify-content: space-between;
   padding: 0 24px;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* INDIVIDUAL SECTIONS (COLUMNS) */
@@ -54,6 +58,7 @@ footer {
   transition: color 0.2s;
   cursor: pointer;
   margin: 0;
+  word-break: break-word;
 }
 
 .footer ul li:hover {
@@ -79,11 +84,86 @@ footer {
   margin: 0;
 }
 
-/* RESPONSIVE */
-@media (max-width: 600px) {
+/* TABLET RESPONSIVE */
+@media (max-width: 992px) {
+  .footer.block > div {
+    padding: 0 20px;
+  }
+
+  .footer .section {
+    flex: 0 1 calc(50% - 10px);
+    min-width: 140px;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 768px) {
   .footer.block > div {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 20px;
+    padding: 0 15px;
+  }
+
+  .footer .section {
+    flex: 1;
+    min-width: 100px;
+    margin-bottom: 20px;
+  }
+
+  .footer .section ul li:first-child,
+  .footer .section ul li:first-child p,
+  .footer .section strong {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .footer ul li p,
+  .footer ul li {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .footer .section:last-child {
+    grid-column: 1 / -1;
+    margin-bottom: 0;
+  }
+}
+
+/* SMALL MOBILE RESPONSIVE */
+@media (max-width: 600px) {
+  .footer.block > div {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 0 10px;
+  }
+
+  .footer .section {
+    flex: 1;
+    min-width: auto;
+    margin-bottom: 15px;
+  }
+
+  .footer .section ul li:first-child,
+  .footer .section ul li:first-child p,
+  .footer .section strong {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .footer ul li p,
+  .footer ul li {
+    font-size: 12px;
+    margin-bottom: 5px;
+  }
+
+  .footer .section:last-child {
+    grid-column: 1;
+    padding-top: 10px;
+    margin-top: 5px;
+  }
+
+  .footer .section:last-child p {
+    font-size: 11px;
   }
 }

@@ -183,6 +183,7 @@ export default function decorate(block) {
     resultsBox.innerHTML = '<div class="results-header"><h2>Searching...</h2></div>';
     resultsBox.style.display = 'flex';
 
+    // fetching data from static JSON
     try {
       const resp = await fetch('/spreadsheet/hotels-flights-data.json');
       const json = await resp.json();

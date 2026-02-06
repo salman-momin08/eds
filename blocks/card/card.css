@@ -65,3 +65,24 @@
 /* Responsive */
 @media (max-width: 1024px) { .card.block .card-item { flex: 0 0 calc(50% - 10px) !important; } }
 @media (max-width: 600px) { .card.block .card-item { flex: 0 0 100% !important; } }
+/* CARD RESPONSIVE ENHANCEMENTS */
+@media (max-width: 768px) {
+  .card.block {
+    gap: 15px !important;
+    padding: 0 15px !important;
+  }
+
+  .card.block .card-item {
+    flex: 0 0 calc(50% - 8px) !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .card.block {
+    padding: 0 10px !important;
+  }
+
+  .card.block .card-item {
+    flex: 0 0 100% !important;
+  }
+}
