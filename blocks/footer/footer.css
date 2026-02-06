@@ -8,13 +8,13 @@ footer {
   box-sizing: border-box;
 }
 
-/* MAIN WRAPPER */
+/* MAIN WRAPPER - Force 4 Columns on Large Screens */
 .footer.block > div {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+  gap: 20px;
   padding: 0 24px;
   width: 100%;
   box-sizing: border-box;
@@ -22,21 +22,21 @@ footer {
 
 /* INDIVIDUAL SECTIONS (COLUMNS) */
 .footer .section {
-  flex: 0 1 auto; /* Shrink to fit content */
-  min-width: 160px;
+  min-width: 0;
   margin-bottom: 30px;
 }
 
-/* HEADERS (About Agoda, Support, Partners, Connect) */
+/* HEADERS */
 .footer .section ul li:first-child,
 .footer .section ul li:first-child p,
 .footer .section strong {
-  color: #ffffff !important; /* Bold White */
+  color: #ffffff !important;
   font-size: 15px;
   font-weight: 700;
-  text-transform: none; /* Keeps original casing */
+  text-transform: none;
   margin-bottom: 12px;
   list-style: none;
+  display: block;
 }
 
 /* LIST STYLING */
@@ -53,7 +53,7 @@ footer {
 /* Regular Link Items */
 .footer ul li p, 
 .footer ul li {
-  color: #a0aec0; /* Dimmer grey for links */
+  color: #a0aec0;
   font-size: 14px;
   transition: color 0.2s;
   cursor: pointer;
@@ -62,20 +62,20 @@ footer {
 }
 
 .footer ul li:hover {
-  color: #ef4444; /* Turns red on hover */
+  color: #ef4444;
 }
 
-/* COPYRIGHT SECTION (The bottom part) */
+/* COPYRIGHT SECTION */
 .footer .section:last-child {
-  flex: 0 0 100%; /* Spans full width */
+  grid-column: span 4;
   border-top: 1px solid #2d3748;
   margin-top: 10px;
-  padding-top: 15px; /* Reduced padding to shrink space */
+  padding: 15px 0;
   text-align: center;
 }
 
 .footer .section:last-child .default-content-wrapper {
-  display: inline-block; /* Only takes up space of the text */
+  display: inline-block;
 }
 
 .footer .section:last-child p {
@@ -84,86 +84,37 @@ footer {
   margin: 0;
 }
 
-/* TABLET RESPONSIVE */
+/* --- RESPONSIVE BREAKPOINTS --- */
+
+/* TABLET: 2 Columns + Center Alignment */
 @media (max-width: 992px) {
   .footer.block > div {
-    padding: 0 20px;
-  }
-
-  .footer .section {
-    flex: 0 1 calc(50% - 10px);
-    min-width: 140px;
-  }
-}
-
-/* MOBILE RESPONSIVE */
-@media (max-width: 768px) {
-  .footer.block > div {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    padding: 0 15px;
-  }
-
-  .footer .section {
-    flex: 1;
-    min-width: 100px;
-    margin-bottom: 20px;
-  }
-
-  .footer .section ul li:first-child,
-  .footer .section ul li:first-child p,
-  .footer .section strong {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  .footer ul li p,
-  .footer ul li {
-    font-size: 13px;
-    margin-bottom: 6px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    text-align: center; /* Centers the text */
   }
 
   .footer .section:last-child {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
+    grid-column: span 2;
   }
 }
 
-/* SMALL MOBILE RESPONSIVE */
+/* MOBILE: 1 Column + Center Alignment */
 @media (max-width: 600px) {
   .footer.block > div {
     grid-template-columns: 1fr;
-    gap: 15px;
-    padding: 0 10px;
+    gap: 20px;
+    text-align: center; /* Centers the text */
+    justify-items: center; /* Centers grid items horizontally */
   }
 
   .footer .section {
-    flex: 1;
-    min-width: auto;
-    margin-bottom: 15px;
-  }
-
-  .footer .section ul li:first-child,
-  .footer .section ul li:first-child p,
-  .footer .section strong {
-    font-size: 13px;
-    margin-bottom: 8px;
-  }
-
-  .footer ul li p,
-  .footer ul li {
-    font-size: 12px;
-    margin-bottom: 5px;
+    margin-bottom: 25px;
+    width: 100%; /* Ensures section takes full width for centering */
   }
 
   .footer .section:last-child {
-    grid-column: 1;
-    padding-top: 10px;
+    grid-column: span 1;
     margin-top: 5px;
-  }
-
-  .footer .section:last-child p {
-    font-size: 11px;
   }
 }

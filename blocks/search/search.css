@@ -21,6 +21,7 @@
   box-shadow: var(--shadow);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .search-fields-grid {
@@ -90,6 +91,30 @@
 }
 
 .guest-dropdown.show { display: block; }
+
+.toast-error {
+  position: absolute;
+  right: 20px;
+  top: -10px;
+  background: #fee2e2;
+  color: #7f1d1d;
+  border: 1px solid #fecaca;
+  padding: 10px 14px;
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  font-weight: 600;
+  font-size: 13px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
+  z-index: 120;
+}
+
+.toast-error.show {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .counter-row {
   display: flex;

@@ -62,6 +62,22 @@ export default function decorate(block) {
     </div>
   `;
 
+  const toast = document.createElement('div');
+  toast.className = 'toast-error';
+  toast.setAttribute('role', 'alert');
+  toast.setAttribute('aria-live', 'polite');
+  block.querySelector('.search-wrapper').appendChild(toast);
+  let toastTimer;
+
+  const showToast = (message) => {
+    toast.textContent = message;
+    toast.classList.add('show');
+    if (toastTimer) window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => {
+      toast.classList.remove('show');
+    }, 2200);
+  };
+
   // Create results container after hero section
   const heroSection = document.querySelector('.hero');
   let resultsBox = document.querySelector('#resultsContainer');
@@ -142,7 +158,12 @@ export default function decorate(block) {
       const type = row ? row.dataset.type : 'adults';
       const max = type === 'rooms' ? 20 : 30;
       let val = parseInt(valSpan.textContent, 10);
-      val = btn.classList.contains('plus')
+      const isPlus = btn.classList.contains('plus');
+      if (isPlus && val >= max) {
+        showToast(type === 'rooms' ? `Max rooms is ${max}.` : `Max guests is ${max}.`);
+        return;
+      }
+      val = isPlus
         ? Math.min(max, val + 1)
         : Math.max(1, val - 1);
       valSpan.textContent = val;
