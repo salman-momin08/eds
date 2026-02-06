@@ -58,7 +58,7 @@ footer {
   transition: color 0.2s;
   cursor: pointer;
   margin: 0;
-  word-break: break-word;
+  overflow-wrap: break-word;
 }
 
 .footer ul li:hover {

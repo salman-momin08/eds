@@ -252,7 +252,8 @@
   .search-fields-grid { flex-direction: column; align-items: stretch; }
   .search-field { border-right: none; border-bottom: 1px solid #eee; padding: 10px 0; }
   .result-list-item { flex: 0 1 100%; }
-}/* RESPONSIVE FIXES - Add to end of search.css */
+}
+/* RESPONSIVE FIXES - Add to end of search.css */
 
 /* Tablet and mobile responsive styles */
 @media (max-width: 1024px) {
